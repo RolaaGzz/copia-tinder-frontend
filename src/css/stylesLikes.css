@@ -1,0 +1,38 @@
+.icontinder{
+    border-radius: 15px;
+    background: white;
+    
+}
+
+#icono-tinder {
+     width: 1rem;
+     height: auto;
+}
+
+#usericon, #usermessage{
+    border: 0;
+    background: transparent;
+    font-size: 1.5rem
+}
+
+#contenido{
+    background-image: url("../images/fotoperfil.jpg");
+    background-size: cover;
+    width: 23rem;
+    height: 36rem;
+    border-radius: 10px;
+    
+}
+
+span{
+    color:white;
+}
+
+.icono{
+
+    border-radius: 15px;
+    background: white;
+
+}
+
+
