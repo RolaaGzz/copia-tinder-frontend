@@ -16,7 +16,7 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = 'http://localhost:4200';
+  const ENDPOINT = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     //define los atributos que estan guardados en la url
