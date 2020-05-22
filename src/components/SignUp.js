@@ -1,19 +1,31 @@
-import React, {useState, Fragment} from 'react';
+import React, {useState, Fragment, useContext} from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../images/TinderLogo.svg'
+import logo from '../images/TinderLogo.svg';
+import AlertaContext from '../context/alertaContext';
+import AuthContext from '../context/autenticacion/authContext';
+
 const SignUp = () => {
+
+    //Extraer los valores del context
+    const alertaContext = useContext(AlertaContext);
+    const {alerta, mostrarAlerta} = alertaContext;
+
+
+    const authContext = useContext(AuthContext);
+    const { registrarUsuario } = authContext;
 
     //State para iniciar sesion
     const [usuario, guardarUsuario] = useState({
-        nombre:'',
+        name:'',
         email: '',
-        birthday: '',
+        gender: '',
+        birth_date: '',
         password: '',
         confirmar: ''
     })
 
     //extraer de usuario
-    const {nombre,email, birthday, password, confirmar} = usuario;
+    const {name,email,gender, birth_date, password, confirmar} = usuario;
 
 const onChange = e => {
     guardarUsuario({
@@ -27,12 +39,29 @@ const onSubmit = e => {
     e.preventDefault();
 
     //Validar que no haya campos vacios
-
+    if(name.trim() === '' || email.trim() === '' || birth_date.trim() === '' || 
+    gender.trim() === '' || password.trim() === '' || confirmar.trim() === '') {
+        mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+        return;
+    }
     // Password minimo de 6 caracteres
-
+    if(password.length < 6) {
+        mostrarAlerta('El password debe ser de al menos 6 caracteres', 'alerta-error')
+        return;
+    }
     // Los 2 password son iguales
-
+    if(password !== confirmar) {
+        mostrarAlerta('Los passwords no coinciden', 'alerta-error')
+        return;
+    }
     //Pasarlo a funcion
+    registrarUsuario({
+        name,
+        email,
+        gender,
+        birth_date,
+        password
+    });
 }
     return ( 
         <Fragment>
@@ -48,21 +77,22 @@ const onSubmit = e => {
             </header>
 
         <div className='form-group SignUp'>
+            {alerta ? (<div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div>) : null}
             <div className='container'>
-            <h1 className='tituloform text-center'>Crear una Cuenta</h1>
+            <h1 id='titulosignup' className='text-center'>Crear una Cuenta</h1>
 
             <form
                 onSubmit={onSubmit}
             >
                 <div className='campo-form'>
-                    <label htmlFor='nombre'>Nombre</label>
+                    <label htmlFor='name'>Nombre</label>
                     <input
                         className='form-control'
                         type='text'
-                        id='nombre'
-                        name='nombre'
+                        id='name'
+                        name='name'
                         placeholder='Tu Nombre'
-                        value={nombre}
+                        value={name}
                         onChange={onChange}
                     
                     />
@@ -84,22 +114,22 @@ const onSubmit = e => {
 
                  
                  <div class="form-group mt-2">
-                    <label for="inputGenero">Genero</label>
-                    <select id="inputGenero" class="form-control">
-                        <option selected>Choose...</option>
+                    <label for="gender">Genero</label>
+                    <select id="gender" class="form-control" name='gender' value={gender} onChange={onChange}>
+                        <option selected></option>
                         <option value='Hombre'>Hombre</option>
                         <option value='Mujer'>Mujer</option>
                     </select>
                     </div>
 
                     <div className='campo-form'>
-                    <label htmlFor='birthday'>Fecha de nacimiento</label>
+                    <label htmlFor='birth_date'>Fecha de nacimiento</label>
                     <input
                         className='form-control'
                         type='date'
-                        id='birthday'
-                        name='birthday'
-                        value={birthday}
+                        id='birth_date'
+                        name='birth_date'
+                        value={birth_date}
                         onChange={onChange}
                     
                     />
