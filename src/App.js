@@ -11,7 +11,8 @@ import Login from './components/Login';
 import Principal from './components/Principal';
 import AlertaState from './context/alertaState';
 import AuthState from './context/autenticacion/authState';
-import Join from './components/Join'
+import Join from './components/Join';
+import Chat from './components/Chat';
 
 function App() {
   //const [color, changeColor] = useState("#FE3C72");
@@ -34,6 +35,8 @@ function App() {
               <Route exact path="/inicio" component={Principal}/>
                
               <Route exact path='/join' component={Join}/>
+
+              <Route exact path='/chat' component={Chat}/>
         
             
             </Switch>
