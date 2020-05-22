@@ -1,7 +1,8 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
 import clienteAxios from '../../config/axios';
+import tokenAuth from '../../config/token';
 
 import {
     REGISTRO_EXITOSO,
@@ -32,15 +33,68 @@ const AuthState = props => {
                 payload: respuesta.data
             })
 
+            //Obtener el usuario
+            usuarioAutenticado();
         } catch (error) {
-            console.log(error);
+            //console.log(error.response.data.msg);
+            const alerta = {
+                mensaje: error.response.data.message,
+                categoria: 'alerta-error'
+            }
 
             dispatch({
-                type: REGISTRO_ERROR
+                type: REGISTRO_ERROR,
+                payload: alerta
+            })
+        }
+    }
+
+    // Retorna el usuario autenticado
+
+    const usuarioAutenticado = async () => {
+        const token = localStorage.getItem('token');
+        
+        if (token) {
+            tokenAuth(token);
+
+        }
+
+        try {
+            const respuesta = await clienteAxios.get('/api/v1/users/login')
+            //console.log(respuesta);
+            dispatch({
+                type: OBTENER_USUARIO,
+                payload: respuesta.data
+            });
+
+        } catch (error) {
+            dispatch({
+                type: LOGIN_ERROR
             })
         }
     }
     
+    const iniciarSesion = async datos => {
+        try {
+            const respuesta = await clienteAxios.post('/api/v1/users/login')
+            dispatch({
+                type: LOGIN_EXITOSO,
+                payload: respuesta.data
+            });
+
+            usuarioAutenticado();
+        } catch (error) {
+            const alerta = {
+                mensaje: error.response.data.message,
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: alerta
+            })
+        }
+    }
     
     return(
         <AuthContext.Provider
@@ -49,7 +103,8 @@ const AuthState = props => {
                 autenticado: state.autenticado,
                 state: state.usuario,
                 mensaje: state.mensaje,
-                registrarUsuario
+                registrarUsuario,
+                iniciarSesion
             }}
         
         >{props.children}

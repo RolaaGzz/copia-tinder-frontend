@@ -45,7 +45,7 @@ import {
                         </div>
                     <div className="iniciarsesion text-center mt-5 pt-5">
                         <div className="container">
-                        <p>Al hacer clic en Iniciar Sesión, aceptas nuestros Términos. Conoce cómo procesamos tus datos en nuestra Política de privacidad y Políticas sobre cookies.</p>
+                        <p className='parrafo'>Al hacer clic en Iniciar Sesión, aceptas nuestros Términos. Conoce cómo procesamos tus datos en nuestra Política de privacidad y Políticas sobre cookies.</p>
                     
                     </div>
                     
