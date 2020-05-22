@@ -9,7 +9,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
-
+ 
 const Principal = () => {
     return (  
         <Fragment>
