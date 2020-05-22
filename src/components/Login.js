@@ -1,4 +1,4 @@
-import React, {useState, Fragment} from 'react';
+import React, {useState, Fragment, useContext, useEffect} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -6,8 +6,26 @@ import {
     Link
   } from "react-router-dom";
   import logo from '../images/TinderLogo.svg'
+  import AlertaContext from '../context/alertaContext';
+  import AuthContext from '../context/autenticacion/authContext';
 
-const Login = () => {
+const Login = (props) => {
+    const alertaContext = useContext(AlertaContext);
+    const {alerta, mostrarAlerta} = alertaContext;
+
+
+    const authContext = useContext(AuthContext);
+    const { mensaje, autenticado, iniciarSesion } = authContext;
+
+    useEffect(() => {
+        if(autenticado) {
+            props.history.push('/inicio');
+        }
+
+        if(mensaje){
+            mostrarAlerta(mensaje.message, mensaje.categoria);
+        }
+    }, [mensaje, autenticado, props.history]);
 
     //State para iniciar sesion
     const [usuario, guardarUsuario] = useState({
@@ -30,8 +48,11 @@ const onSubmit = e => {
     e.preventDefault();
 
     //Validar que no haya campos vacios
-
+    if(email.trim() === '' || password.trim() === ''){
+        mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+    }
     //Pasarlo a funcion
+    iniciarSesion({email, password});
 }
     return ( 
         <Fragment>
@@ -46,7 +67,8 @@ const onSubmit = e => {
                  </div>
             </header>
 
-        <div className='form-group Login'>
+        <div className='form-group Login '>
+            {alerta ? (<div className={`alerta text-center ${alerta.categoria}`}> {alerta.msg} </div>) : null }
             <div className='container'>
             <h1 className='tituloform text-center'>Iniciar Sesion</h1>
 

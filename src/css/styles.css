@@ -18,7 +18,7 @@ body{
     font-size: 14vw;
     
 }
-p{
+.parrafo{
     color: white
 }
 .iniciarsesion{
@@ -93,22 +93,9 @@ p{
     border-radius: 10px;
     
 }
-
-span{
-    color:white;
-}
-
 .icono{
 
     border-radius: 15px;
     background: white;
 
-}
-
-#nolike{
-    color:red;
-}
-
-#like{
-    color:#33FF43;
 }
