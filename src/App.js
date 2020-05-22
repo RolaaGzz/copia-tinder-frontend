@@ -6,14 +6,22 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import SignUp from './components/SignUp'
-import Login from './components/Login'
+import SignUp from './components/SignUp';
+import Login from './components/Login';
+import Principal from './components/Principal';
+import AlertaState from './context/alertaState';
+import AuthState from './context/autenticacion/authState';
+import Join from './components/Join'
 
 function App() {
   //const [color, changeColor] = useState("#FE3C72");
-  
+  console.log(process.env.REACT_APP_BACKEND_URL);
+
   return (
       //<div  style={{background: color}} id='main'>
+       <Fragment>
+       <AlertaState>
+         <AuthState>
         <Router>
             <Switch>
               
@@ -22,13 +30,18 @@ function App() {
               <Route exact path="/login"  component={Login} />
               
               <Route exact path="/signup" component={SignUp} />
+
+              <Route exact path="/inicio" component={Principal}/>
                
+              <Route exact path='/join' component={Join}/>
+        
             
             </Switch>
            
         </Router>
-
-
+        </AuthState>
+        </AlertaState> 
+        </Fragment>
       //</div>
   );
 }

@@ -47,12 +47,68 @@ p{
     border-radius: 7%;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
+    margin-left: .3rem;
+    margin-right: .3rem;
+    padding: 1rem;
 }
+
+
 
 .SignUp{
     background-color: white;
     margin-top: 20px;
-    border-radius: 5%;
+    border-radius: 7%;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
+    margin-left: .3rem;
+    margin-right: .3rem;
+    padding: .5rem;
+}
+
+
+
+.icontinder{
+    border-radius: 15px;
+    background: white;
+    
+}
+
+#icono-tinder {
+     width: 1rem;
+     height: auto;
+}
+
+#usericon, #usermessage{
+    border: 0;
+    color: white;
+    background: transparent;
+    font-size: 1.5rem
+}
+
+#contenido{
+    
+    background-size: cover;
+    width: 23rem;
+    height: 36rem;
+    border-radius: 10px;
+    
+}
+
+span{
+    color:white;
+}
+
+.icono{
+
+    border-radius: 15px;
+    background: white;
+
+}
+
+#nolike{
+    color:red;
+}
+
+#like{
+    color:#33FF43;
 }
